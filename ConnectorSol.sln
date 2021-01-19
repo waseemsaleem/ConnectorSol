@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30711.63
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConnectorSol", "ConnectorSol\ConnectorSol.csproj", "{73C4B012-FF55-46F5-BE66-CF9860832956}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{73C4B012-FF55-46F5-BE66-CF9860832956}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{73C4B012-FF55-46F5-BE66-CF9860832956}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{73C4B012-FF55-46F5-BE66-CF9860832956}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{73C4B012-FF55-46F5-BE66-CF9860832956}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DAF8CF7F-41AB-4238-B1BC-2B4F89C5459B}
+	EndGlobalSection
+EndGlobal
