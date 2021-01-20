@@ -147,8 +147,7 @@ namespace JsonToSQL
 
         static string GetInsertColumnValue(DataRow row, DataColumn column)
         {
-            string output = "";
-
+            string output;
             if (row[column.ColumnName] == DBNull.Value)
             {
                 output = "NULL";

@@ -14,8 +14,8 @@ namespace JsonToSQL
     {
         public string DatabaseName { get; set; }
 
-        static DataSet ds = new DataSet();
-        static List<TableRelation> relations = new List<TableRelation>();
+        static readonly DataSet ds = new DataSet();
+        static readonly List<TableRelation> relations = new List<TableRelation>();
 
         static int index = 0;
 
@@ -89,11 +89,13 @@ namespace JsonToSQL
                 DataTable dt = new DataTable(tableName);
 
                 Dictionary<string, string> dic = new Dictionary<string, string>();
-                List<SqlColumn> listColumns = new List<SqlColumn>();
-                //SqlColumn sqlColumn = new SqlColumn();
-                //listColumns.Add(sqlColumn);
-                //sqlColumn
-                listColumns.Add(new SqlColumn { Name = tableName + "ID", Value = pkValue.ToString(), Type = "System.Int32" });
+                List<SqlColumn> listColumns = new List<SqlColumn>
+                {
+                    //SqlColumn sqlColumn = new SqlColumn();
+                    //listColumns.Add(sqlColumn);
+                    //sqlColumn
+                    new SqlColumn { Name = tableName + "ID", Value = pkValue.ToString(), Type = "System.Int32" }
+                };
                 dic[tableName + "ID"] = pkValue.ToString(); //primary key
 
                 if (!string.IsNullOrEmpty(parentTableName))
@@ -122,7 +124,7 @@ namespace JsonToSQL
                             //index = 0;
                             foreach (var arr in objects)
                             {
-                                index = index + 1;
+                                index += 1;
                                 var jo = arr.ToObject<JObject>();
                                 ParseJObject(jo, tableName + "_" + key, tableName, index, pkValue);
                             }
@@ -140,7 +142,7 @@ namespace JsonToSQL
                     }
                 }
 
-                pkValue = pkValue + 1;
+                _ = pkValue + 1;
 
                 if (ds.Tables.Contains(dt.TableName)) //for array items
                 {
@@ -172,7 +174,7 @@ namespace JsonToSQL
                             type = "System.Int32"; //foreign key
                         }
 
-                        dt.Columns.Add(AddColumn(dic.Keys.ToArray()[i], type, i == 0 ? true : false));
+                        dt.Columns.Add(AddColumn(dic.Keys.ToArray()[i], type, i == 0));
                     }
 
                     dt.Rows.Add(dic.Values.ToArray());
@@ -195,7 +197,7 @@ namespace JsonToSQL
             {
                 ColumnName = name,
                 DataType = System.Type.GetType(type),
-                AutoIncrement = isPrimaryKey ? true : false,
+                AutoIncrement = isPrimaryKey,
                 AutoIncrementSeed = 1,
                 AutoIncrementStep = 1,
                 AllowDBNull = true
