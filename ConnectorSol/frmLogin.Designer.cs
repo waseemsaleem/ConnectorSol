@@ -33,10 +33,10 @@ namespace ConnectorSol
             this.txtEmail = new System.Windows.Forms.TextBox();
             this.lblPassword = new System.Windows.Forms.Label();
             this.txtPassword = new System.Windows.Forms.TextBox();
-            this.btnSignUp = new System.Windows.Forms.Button();
-            this.btnSignIn = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lblEmail
@@ -74,28 +74,6 @@ namespace ConnectorSol
             this.txtPassword.Size = new System.Drawing.Size(302, 22);
             this.txtPassword.TabIndex = 3;
             // 
-            // btnSignUp
-            // 
-            this.btnSignUp.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSignUp.Location = new System.Drawing.Point(278, 400);
-            this.btnSignUp.Name = "btnSignUp";
-            this.btnSignUp.Size = new System.Drawing.Size(75, 26);
-            this.btnSignUp.TabIndex = 4;
-            this.btnSignUp.Text = "Sign Up";
-            this.btnSignUp.UseVisualStyleBackColor = true;
-            this.btnSignUp.Click += new System.EventHandler(this.btnSignUp_Click);
-            // 
-            // btnSignIn
-            // 
-            this.btnSignIn.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSignIn.Location = new System.Drawing.Point(368, 400);
-            this.btnSignIn.Name = "btnSignIn";
-            this.btnSignIn.Size = new System.Drawing.Size(75, 26);
-            this.btnSignIn.TabIndex = 5;
-            this.btnSignIn.Text = "Sign In";
-            this.btnSignIn.UseVisualStyleBackColor = true;
-            this.btnSignIn.Click += new System.EventHandler(this.btnSignIn_Click);
-            // 
             // textBox1
             // 
             this.textBox1.Location = new System.Drawing.Point(273, 209);
@@ -111,15 +89,29 @@ namespace ConnectorSol
             this.label1.Size = new System.Drawing.Size(0, 17);
             this.label1.TabIndex = 7;
             // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.FileName = "openFileDialog1";
+            // 
+            // button1
+            // 
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.Location = new System.Drawing.Point(306, 255);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(209, 26);
+            this.button1.TabIndex = 8;
+            this.button1.Text = "Browse and Create Sql";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // frmLogin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.btnSignIn);
-            this.Controls.Add(this.btnSignUp);
             this.Controls.Add(this.txtPassword);
             this.Controls.Add(this.lblPassword);
             this.Controls.Add(this.txtEmail);
@@ -137,10 +129,10 @@ namespace ConnectorSol
         private System.Windows.Forms.TextBox txtEmail;
         private System.Windows.Forms.Label lblPassword;
         private System.Windows.Forms.TextBox txtPassword;
-        private System.Windows.Forms.Button btnSignUp;
-        private System.Windows.Forms.Button btnSignIn;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private System.Windows.Forms.Button button1;
     }
 }
 
