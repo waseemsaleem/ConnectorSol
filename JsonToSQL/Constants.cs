@@ -4,8 +4,8 @@ using System.Text;
 
 namespace JsonToSQL
 {
-    internal class Constants
+    public static class Constants
     {
-        public static string DefaultDbName = "JsonToSQL";
+        public static string DefaultDbName = "ConnectorDB";
     }
 }

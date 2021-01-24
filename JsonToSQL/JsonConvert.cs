@@ -3,9 +3,6 @@ using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace JsonToSQL
@@ -14,29 +11,33 @@ namespace JsonToSQL
     {
         public string DatabaseName { get; set; }
 
-        static readonly DataSet ds = new DataSet();
-        static readonly List<TableRelation> relations = new List<TableRelation>();
-
+        private readonly DataSet ds;
+        private readonly List<TableRelation> relations;
+        public JsonConvert()
+        {
+            ds = new DataSet();
+            relations = new List<TableRelation>();
+        }
         static int index = 0;
 
-        public string ToSQL(Stream jsonStream)
+        public string ToSQL(Stream jsonStream,string dbName)
         {
             using (StreamReader sr = new StreamReader(jsonStream))
             {
                 string json = sr.ReadToEnd();
 
-                return ToSQL(json);
+                return ToSQL(json,dbName);
             }
         }
 
-        public string ToSQL(string json)
+        public string ToSQL(string json,string dbName)
         {
-            if (string.IsNullOrWhiteSpace(this.DatabaseName))
-            {
-                this.DatabaseName = Constants.DefaultDbName;
-            }
+            //if (string.IsNullOrWhiteSpace(this.DatabaseName))
+            //{
+            //    this.DatabaseName = Constants.DefaultDbName;
+            //}
 
-            ds.DataSetName = this.DatabaseName;
+            ds.DataSetName = dbName;
 
             var jToken = JToken.Parse(json);
 
@@ -126,7 +127,7 @@ namespace JsonToSQL
                             {
                                 index += 1;
                                 var jo = arr.ToObject<JObject>();
-                                ParseJObject(jo, tableName + "_" + key, tableName, index, pkValue);
+                                ParseJObject(jo, key, tableName, index, pkValue);
                             }
                         }
                         else
@@ -202,15 +203,6 @@ namespace JsonToSQL
                 AutoIncrementStep = 1,
                 AllowDBNull = true
             };
-        }
-
-        
-
-        
-
-       
-
-
-        
+        }        
     }
 }

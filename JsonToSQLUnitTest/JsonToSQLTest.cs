@@ -16,7 +16,7 @@ namespace JsonToSQLUnitTest
             
             string json = File.ReadAllText("E:\\json1.txt");
 
-            string sqlScript = converter.ToSQL(json);
+            string sqlScript = converter.ToSQL(json,"TestDB");
 
 
             Assert.AreEqual(null, null);
@@ -36,7 +36,7 @@ namespace JsonToSQLUnitTest
                 ms.SetLength(fs.Length);                
                 fs.Read(ms.GetBuffer(), 0, (int)fs.Length);
 
-                string sqlScript = converter.ToSQL(ms);
+                string sqlScript = converter.ToSQL(ms,"TestDB");
             }
 
 
