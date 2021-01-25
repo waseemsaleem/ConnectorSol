@@ -16,10 +16,11 @@ namespace ConnectorSol
 {
     public partial class frmLogin : Form
     {
-        string StrCon = ConfigurationManager.ConnectionStrings["strcon"].ToString();
+        readonly string _strCon;
         public frmLogin()
         {
             InitializeComponent();
+            _strCon =  ConfigurationManager.ConnectionStrings["strcon"].ConnectionString;
             string disclaimer = "----- For XML File Format is -----";
             disclaimer += "\r\n";
             disclaimer += "<?xml version='1.0'?>";
@@ -97,6 +98,10 @@ namespace ConnectorSol
                                     if (count.count > 0)
                                     {
                                         JsonToSQL.JsonConvert jsonConvert = new JsonToSQL.JsonConvert();
+                                        var folderDir = $"{Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)}/SQL";
+                                        bool exists = System.IO.Directory.Exists(folderDir);
+                                        if (!exists)
+                                            System.IO.Directory.CreateDirectory(folderDir);
                                         var sqlStr = jsonConvert.ToSQL(responseMessage, JsonToSQL.Constants.DefaultDbName + "_" + endPoint.Url);
 
                                         var sqlPath = $"{Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)}/SQL/sql_{endPoint.Url}_{DateTime.Now.Ticks}.sql";
@@ -175,6 +180,10 @@ namespace ConnectorSol
                                     var pCcount = httpClient
                                         .GetStringAsync($"{jsonCred.Root.BaseUrl}{endPoint.Url}/count.json").Result;
                                     var count = JsonConvert.DeserializeObject<ProductCount>(pCcount);
+                                    var folderDir = $"{Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)}/SQL";
+                                    bool exists = System.IO.Directory.Exists(folderDir);
+                                    if (!exists)
+                                        System.IO.Directory.CreateDirectory(folderDir);
                                     if (count.count > 0)
                                     {
                                         JsonToSQL.JsonConvert jsonConvert = new JsonToSQL.JsonConvert();
@@ -233,7 +242,10 @@ namespace ConnectorSol
                     string json = r.ReadToEnd();
                     JsonToSQL.JsonConvert jsonConvert = new JsonToSQL.JsonConvert();
                     var sqlStr = jsonConvert.ToSQL(json, JsonToSQL.Constants.DefaultDbName + "_" + openFileDialog.FileName.Split('.')[0]);
-
+                    var folderDir = $"{Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)}/SQL";
+                    bool exists = System.IO.Directory.Exists(folderDir);
+                    if (!exists)
+                        System.IO.Directory.CreateDirectory(folderDir);
                     var sqlPath = $"{Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)}/SQL/sql_{DateTime.Now.Ticks}.sql";
                     using (StreamWriter streamWriter = new StreamWriter(sqlPath, true))
                     {
@@ -253,7 +265,10 @@ namespace ConnectorSol
                     string json = JsonConvert.SerializeXmlNode(doc);
                     JsonToSQL.JsonConvert jsonConvert = new JsonToSQL.JsonConvert();
                     var sqlStr = jsonConvert.ToSQL(json, JsonToSQL.Constants.DefaultDbName + "_" + openFileDialog.FileName.Split('.')[0]);
-
+                    var folderDir = $"{Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)}/SQL";
+                    bool exists = System.IO.Directory.Exists(folderDir);
+                    if (!exists)
+                        System.IO.Directory.CreateDirectory(folderDir);
                     var sqlPath = $"{Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)}/SQL/sql_{DateTime.Now.Ticks}.sql";
                     using (StreamWriter streamWriter = new StreamWriter(sqlPath, true))
                     {
@@ -298,6 +313,10 @@ namespace ConnectorSol
                 var pCcount = httpClient
                     .GetStringAsync($"{txtBaseUrl.Text}{apiEndPoint}/count.json").Result;
                 var count = JsonConvert.DeserializeObject<ProductCount>(pCcount);
+                var folderDir = $"{Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)}/SQL";
+                bool exists = System.IO.Directory.Exists(folderDir);
+                if (!exists)
+                    System.IO.Directory.CreateDirectory(folderDir);
                 if (count.count > 0)
                 {
                     JsonToSQL.JsonConvert jsonConvert = new JsonToSQL.JsonConvert();
@@ -310,7 +329,7 @@ namespace ConnectorSol
                     //creating database
 
                     DataTable table = new DataTable();
-                    var dbarray = StrCon.Split(';');
+                    var dbarray = _strCon.Split(';');
                     string dbConnections = "";
                     string dbName = "";
                     for (int j = 0; j < dbarray.Length; j++)
@@ -325,7 +344,7 @@ namespace ConnectorSol
                             dbConnections += dbarray[j] + ";";
                     }
 
-                    Microsoft.Data.SqlClient.SqlConnection conn = new Microsoft.Data.SqlClient.SqlConnection(StrCon);
+                    Microsoft.Data.SqlClient.SqlConnection conn = new Microsoft.Data.SqlClient.SqlConnection(_strCon);
 
                     Server server = new Server(new ServerConnection(conn));
 
